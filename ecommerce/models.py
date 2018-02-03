@@ -121,9 +121,9 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         primary_key=True
     )             
-    titulo = models.CharField(255, null=False)
+    titulo = models.CharField(max_length=255, null=False)
     descripcion = models.TextField()
-    cantidad = models.CharField(255, null=False)
+    cantidad = models.CharField(max_length=255, null=False)
     precio = models.FloatField(null=False, default=None)
     stock = models.PositiveIntegerField(null=False)
     pedido = models.BooleanField(255)
@@ -251,7 +251,7 @@ class Message(models.Model):
 class Order(models.Model):
     id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
     id_direction =  models.ForeignKey(Direction, on_delete=models.CASCADE)
-    factura =  models.ForeignKey(Direction, on_delete=models.CASCADE)
+    factura =  models.ForeignKey(Direction, on_delete=models.CASCADE, related_name="facturas")
     id_status = models.OneToOneField(
     Cat_status_order,
         on_delete=models.CASCADE,
@@ -260,7 +260,7 @@ class Order(models.Model):
     total = models.FloatField(null=False, blank=True, default=None)
     fecha = models.DateTimeField()
     id_tipo_pago = models.OneToOneField(
-        Cat_typ_pay,
+        Cat_type_pay,
         on_delete=models.CASCADE,
         primary_key=True
     )
@@ -300,7 +300,7 @@ class Rel_ord_pro(models.Model):
 class Rel_pro_att(models.Model):
     id_product =  models.ForeignKey(Product, on_delete=models.CASCADE)
     id_attribute =  models.ForeignKey(Cat_attribute, on_delete=models.CASCADE)
-    valor =  models.CharField(255)
+    valor =  models.CharField(max_length=255)
 
     class Meta:
         db_table = "RelProAtt"

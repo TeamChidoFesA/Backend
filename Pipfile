@@ -13,6 +13,7 @@ mysqlclient = "*"
 django-cors-headers = "*"
 django-dotenv = "*"
 django-extensions = "*"
+pillow = "*"
 
 
 [dev-packages]
