@@ -1,2 +1,7 @@
 Django==2.0.1
 pytz==2017.3
+mysqlclient
+django-cors-headers
+django-dotenv
+django-extensions
+pillow
