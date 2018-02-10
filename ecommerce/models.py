@@ -60,8 +60,7 @@ class User(models.Model):
     token = models.CharField(max_length=255) 
     type_user = models.OneToOneField(
         Cat_type_user,
-        on_delete=models.CASCADE,
-        primary_key=True,
+        on_delete=models.CASCADE
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -73,15 +72,17 @@ class User(models.Model):
         return self.type_user.type_user       
 
 class Direction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+
     nombre = models.CharField(max_length=100, null=False)
     ape_paterno = models.CharField(max_length=100, null=False)
     ape_materno = models.CharField(max_length=100, null=False)
     direccion = models.TextField(null=False)
     ciudad = models.CharField(max_length=255, null=False)
     pais = models.CharField(max_length=255, null=False)
-    cod_postal = models.PositiveIntegerField(null=False)
-    telefono = models.PositiveIntegerField()
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    cod_postal = models.CharField(max_length=10, null=False)
+    telefono = models.CharField(max_length=15, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     empresa = models.CharField(max_length=255)
     rfc = models.CharField(max_length=12)
     created = models.DateTimeField(auto_now_add=True)
@@ -94,9 +95,8 @@ class Direction(models.Model):
         return self.name+" "+self.ape_paterno+" ("+self.cod_postal+")"
 
 class Seller(models.Model):
-    id_user = models.OneToOneField(User,
-        on_delete=models.CASCADE,
-        primary_key=True,
+    user = models.OneToOneField(User,
+        on_delete=models.CASCADE
     )
     nombre = models.CharField(max_length=100, null=False)
     ape_paterno = models.CharField(max_length=100, null=False)
@@ -115,11 +115,10 @@ class Seller(models.Model):
         return self.nombre+' '+self.ape_paterno
 
 class Product(models.Model):
-    id_seller =  models.ForeignKey(Seller, on_delete=models.CASCADE, null=False)
-    id_category = models.OneToOneField(
+    seller =  models.ForeignKey(Seller, on_delete=models.CASCADE, null=False)
+    category = models.OneToOneField(
         Cat_category,
-        on_delete=models.CASCADE,
-        primary_key=True
+        on_delete=models.CASCADE
     )             
     titulo = models.CharField(max_length=255, null=False)
     descripcion = models.TextField()
@@ -137,8 +136,8 @@ class Product(models.Model):
         return self.titulo+' ('+self.precio+')'
 
 class Wishes(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -149,8 +148,8 @@ class Wishes(models.Model):
         return self.product.titulo     
 
 class Favorites(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -168,7 +167,7 @@ class No_user(models.Model):
         db_table = "NoUser" 
 
 class Photo_seller(models.Model):
-    id_seller =  models.ForeignKey(Seller, on_delete=models.CASCADE)
+    seller =  models.ForeignKey(Seller, on_delete=models.CASCADE)
     foto = models.ImageField(upload_to = 'sellers/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -180,7 +179,7 @@ class Photo_seller(models.Model):
         return self.foto                     
 
 class Photo_prod(models.Model):
-    id_producto =  models.ForeignKey(Product, on_delete=models.CASCADE)
+    producto =  models.ForeignKey(Product, on_delete=models.CASCADE)
     foto = models.ImageField(upload_to = 'sellers/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -192,8 +191,8 @@ class Photo_prod(models.Model):
         return self.foto   
 
 class Review(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     resena = models.TextField()
     calificacion = models.PositiveIntegerField()
     created = models.DateTimeField(auto_now_add=True)
@@ -206,8 +205,8 @@ class Review(models.Model):
         return self.resena       
 
 class Observation(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     observacion = models.TextField()
     calificacion = models.PositiveIntegerField()
     created = models.DateTimeField(auto_now_add=True)
@@ -220,8 +219,8 @@ class Observation(models.Model):
         return self.observacion                 
 
 class Request(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     peticion = models.TextField()
     respuesta = models.TextField()
     num_peticion = models.PositiveIntegerField()
@@ -235,8 +234,8 @@ class Request(models.Model):
         return self.peticion     
 
 class Message(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     mensaje = models.TextField()
     atendido = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
@@ -249,20 +248,18 @@ class Message(models.Model):
         return self.mensaje  
 
 class Order(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_direction =  models.ForeignKey(Direction, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    direction =  models.ForeignKey(Direction, on_delete=models.CASCADE)
     factura =  models.ForeignKey(Direction, on_delete=models.CASCADE, related_name="facturas")
-    id_status = models.OneToOneField(
+    status = models.OneToOneField(
     Cat_status_order,
-        on_delete=models.CASCADE,
-        primary_key=True
+        on_delete=models.CASCADE
     )
     total = models.FloatField(null=False, blank=True, default=None)
     fecha = models.DateTimeField()
-    id_tipo_pago = models.OneToOneField(
+    tipo_pago = models.OneToOneField(
         Cat_type_pay,
-        on_delete=models.CASCADE,
-        primary_key=True
+        on_delete=models.CASCADE
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -274,8 +271,8 @@ class Order(models.Model):
         return self.total   
 
 class Reports(models.Model):
-    id_user =  models.ForeignKey(User, on_delete=models.CASCADE)
-    id_seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     reporte = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -287,8 +284,8 @@ class Reports(models.Model):
         return self.observacion             
 
 class Rel_ord_pro(models.Model):
-    id_order =  models.ForeignKey(Order, on_delete=models.CASCADE)
-    id_product =  models.ForeignKey(Product, on_delete=models.CASCADE)
+    order =  models.ForeignKey(Order, on_delete=models.CASCADE)
+    product =  models.ForeignKey(Product, on_delete=models.CASCADE)
     cantidad =  models.PositiveIntegerField()
 
     class Meta:
@@ -298,8 +295,8 @@ class Rel_ord_pro(models.Model):
         return self.observacion 
 
 class Rel_pro_att(models.Model):
-    id_product =  models.ForeignKey(Product, on_delete=models.CASCADE)
-    id_attribute =  models.ForeignKey(Cat_attribute, on_delete=models.CASCADE)
+    product =  models.ForeignKey(Product, on_delete=models.CASCADE)
+    attribute =  models.ForeignKey(Cat_attribute, on_delete=models.CASCADE)
     valor =  models.CharField(max_length=255)
 
     class Meta:
@@ -309,8 +306,8 @@ class Rel_pro_att(models.Model):
         return self.observacion 
 
 class Rel_sel_ski(models.Model):
-    id_seller =  models.ForeignKey(Seller, on_delete=models.CASCADE)
-    id_skill =  models.ForeignKey(Cat_skill, on_delete=models.CASCADE)
+    seller =  models.ForeignKey(Seller, on_delete=models.CASCADE)
+    skill =  models.ForeignKey(Cat_skill, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "RelSelSki"

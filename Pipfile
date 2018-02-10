@@ -14,6 +14,9 @@ django-cors-headers = "*"
 django-dotenv = "*"
 django-extensions = "*"
 pillow = "*"
+djangorestframework = "*"
+djangorestframework-camel-case = "*"
+ipython = "*"
 
 
 [dev-packages]
