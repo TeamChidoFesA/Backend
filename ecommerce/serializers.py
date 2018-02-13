@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from . import models
+from ecommerce import models
 
 
 class SignUpSerializer(serializers.Serializer):
@@ -10,6 +10,10 @@ class SignUpSerializer(serializers.Serializer):
 
     token = serializers.CharField()
 
+    def create(self, data):
+
+        models.User.objects.create(**data)
+
     class Meta:
         model = models.User
 
@@ -19,4 +23,6 @@ class SignUpSerializer(serializers.Serializer):
             'token'
         )
 
-    
+        read_only_fields = (
+            'type_user'
+        )
