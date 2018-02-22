@@ -20,7 +20,7 @@ class Rel_ord_pro(models.Model):
         Product, on_delete=models.CASCADE
     )
 
-    cantidad =  models.PositiveIntegerField()
+    quantity =  models.PositiveIntegerField()
 
     class Meta:
         db_table = "RelOrdPro"
@@ -38,7 +38,7 @@ class Rel_pro_att(models.Model):
         Cat_attribute, on_delete=models.CASCADE
     )
 
-    valor =  models.CharField(max_length=255)
+    value =  models.CharField(max_length=255)
 
     class Meta:
         db_table = "RelProAtt"

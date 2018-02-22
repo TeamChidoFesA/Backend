@@ -48,22 +48,26 @@ class Cat_attribute(models.Model):
     def __str__(self):
         return self.attribute
 
-class Cat_type_pay(models.Model):
+class Cat_pay_type(models.Model):
     
-    tipo_pago = models.CharField(
+    pay_type = models.CharField(
         max_length=150, null=False
     )
 
     class Meta:
-        db_table = "CatTypePay"
+        db_table = "CatPayType"
 
     def __str__(self):
-        return self.tipo_pago
+        return self.pay_type
 
 class Cat_status_order(models.Model):
     
     status = models.CharField(
-        max_length=255, null=False
+        max_length=255
+    )
+
+    description = models.CharField(
+        max_length=255
     )
 
     class Meta:

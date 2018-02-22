@@ -45,39 +45,39 @@ class Direction(models.Model):
         User, on_delete=models.CASCADE, null=False
     )
 
-    nombre = models.CharField(
+    name = models.CharField(
         max_length=100, null=False
     )
     
-    ape_paterno = models.CharField(
+    paternal_last_name = models.CharField(
         max_length=100, null=False
     )
 
-    ape_materno = models.CharField(
+    maternal_last_name = models.CharField(
         max_length=100, null=False
     )
 
-    direccion = models.TextField(
+    address = models.TextField(
         null=False
     )
 
-    ciudad = models.CharField(
+    city = models.CharField(
         max_length=255, null=False
     )
 
-    pais = models.CharField(
+    country = models.CharField(
         max_length=255, null=False
     )
 
-    cod_postal = models.CharField(
+    postal_code = models.CharField(
         max_length=10, null=False
     )
 
-    telefono = models.CharField(
+    phone_number = models.CharField(
         max_length=15, null=False
     )
 
-    empresa = models.CharField(
+    company = models.CharField(
         max_length=255
     )
 
@@ -96,16 +96,15 @@ class Direction(models.Model):
     class Meta:
         db_table = "Direction"
 
-    def __str__(self):
-        return self.name+" "+self.ape_paterno+" ("+self.cod_postal+")"
-
 
 class Seller(models.Model):
     user = models.OneToOneField(User,
         on_delete=models.CASCADE
     )
 
-    nombre = models.CharField(
+    """
+    This is useless
+    name = models.CharField(
         max_length=100, null=False
     )
 
@@ -116,10 +115,11 @@ class Seller(models.Model):
     ape_materno = models.CharField(
         max_length=100, null=False
     )
+    """
 
-    descripcion = models.TextField()
+    description = models.TextField()
 
-    foto_perfil = models.ImageField(
+    profile_picture = models.ImageField(
         upload_to = 'profile/', default = 'profile/no-img.jpg'
     )
 
@@ -136,10 +136,7 @@ class Seller(models.Model):
     )
 
     class Meta:
-        db_table = "Seller"    
-
-    def __str__(self):
-        return self.nombre+' '+self.ape_paterno
+        db_table = "Seller"
 
 
 class No_user(models.Model):
@@ -147,7 +144,7 @@ class No_user(models.Model):
         max_length=255
     )
 
-    area_interes = models.ForeignKey(
+    interest_area = models.ForeignKey(
         Cat_category, on_delete=models.CASCADE
     )
   

@@ -13,9 +13,10 @@ mysqlclient = "*"
 django-cors-headers = "*"
 django-dotenv = "*"
 django-extensions = "*"
-pillow = "*"
+django-fsm = "*"
 djangorestframework = "*"
 djangorestframework-camel-case = "*"
+pillow = "*"
 ipython = "*"
 
 

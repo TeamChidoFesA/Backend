@@ -7,8 +7,10 @@ from ecommerce.models.user import (
 from ecommerce.models.catalog import (
     Cat_category,
     Cat_status_order,
-    Cat_type_pay
+    Cat_pay_type
 )
+from django_fsm import FSMField
+
 
 class Product(models.Model):
 
@@ -21,17 +23,15 @@ class Product(models.Model):
         on_delete=models.CASCADE
     )   
 
-    titulo = models.CharField(
+    tittle = models.CharField(
         max_length=255, null=False
     )
 
-    descripcion = models.TextField()
+    description = models.TextField()
     
-    cantidad = models.CharField(
-        max_length=255, null=False
-    )
+    quantity = models.PositiveIntegerField()
 
-    precio = models.FloatField(
+    price = models.FloatField(
         null=False, default=None
     )
 
@@ -39,7 +39,7 @@ class Product(models.Model):
         null=False
     )
 
-    pedido = models.BooleanField(
+    order = models.BooleanField(
         default=False
     )
 
@@ -55,7 +55,7 @@ class Product(models.Model):
         db_table = "Product"   
 
     def __str__(self):
-        return self.titulo+' ('+self.precio+')'
+        return self.tittle +' ('+self.price+')'
 
 
 class Wishes(models.Model):
@@ -80,7 +80,7 @@ class Wishes(models.Model):
         db_table = "Wishes"  
 
     def __str__(self):
-        return self.product.titulo
+        return self.product.tittle
 
 
 class Favorites(models.Model):
@@ -105,7 +105,7 @@ class Favorites(models.Model):
         db_table = "Favorites"  
 
     def __str__(self):
-        return self.product.titulo           
+        return self.product.tittle           
   
 
 class Review(models.Model):
@@ -117,9 +117,9 @@ class Review(models.Model):
         Product, on_delete=models.CASCADE
     )
 
-    resena = models.TextField()
+    review = models.TextField()
 
-    calificacion = models.PositiveIntegerField()
+    qualification = models.PositiveIntegerField()
 
     created = models.DateTimeField(
         auto_now_add=True
@@ -133,7 +133,7 @@ class Review(models.Model):
         db_table = "Review"
 
     def __str__(self):
-        return self.resena       
+        return self.review       
 
 
 class Observation(models.Model):
@@ -146,9 +146,9 @@ class Observation(models.Model):
         Seller, on_delete=models.CASCADE
     )
 
-    observacion = models.TextField()
+    observation = models.TextField()
     
-    calificacion = models.PositiveIntegerField()
+    qualification = models.PositiveIntegerField()
     
     created = models.DateTimeField(
         auto_now_add=True
@@ -162,7 +162,7 @@ class Observation(models.Model):
         db_table = "Observation" 
 
     def __str__(self):
-        return self.observacion                 
+        return self.observation                 
 
 
 class Request(models.Model):
@@ -175,11 +175,11 @@ class Request(models.Model):
         Seller, on_delete=models.CASCADE
     )
 
-    peticion = models.TextField()
+    petition = models.TextField()
     
-    respuesta = models.TextField()
+    answer = models.TextField()
     
-    num_peticion = models.PositiveIntegerField()
+    num_petition = models.PositiveIntegerField()
     
     created = models.DateTimeField(
         auto_now_add=True
@@ -193,7 +193,7 @@ class Request(models.Model):
         db_table = "Request"
 
     def __str__(self):
-        return self.peticion
+        return self.petition
      
 
 class Message(models.Model):
@@ -206,9 +206,9 @@ class Message(models.Model):
         Seller, on_delete=models.CASCADE
     )
 
-    mensaje = models.TextField()
+    message = models.TextField()
     
-    atendido = models.BooleanField()
+    viewed = models.BooleanField()
     
     created = models.DateTimeField(
         auto_now_add=True
@@ -222,7 +222,7 @@ class Message(models.Model):
         db_table = "Message"
 
     def __str__(self):
-        return self.mensaje
+        return self.message
 
 
 class Order(models.Model):
@@ -243,18 +243,18 @@ class Order(models.Model):
     )
     """
 
-    status = models.ForeignKey(
-        Cat_status_order, on_delete=models.CASCADE
+    status = FSMField(
+        max_length=50, default=''
     )
 
     total = models.FloatField(
         null=False, blank=True, default=None
     )
 
-    fecha = models.DateTimeField()
+    order_date = models.DateTimeField()
 
-    tipo_pago = models.ForeignKey(
-        Cat_type_pay, on_delete=models.CASCADE
+    pay_type = models.ForeignKey(
+        Cat_pay_type, on_delete=models.CASCADE
     )
 
     created = models.DateTimeField(
@@ -282,7 +282,7 @@ class Reports(models.Model):
         Seller, on_delete=models.CASCADE
     )
 
-    reporte = models.TextField()
+    report = models.TextField()
     
     created = models.DateTimeField(
         auto_now_add=True
@@ -296,4 +296,4 @@ class Reports(models.Model):
         db_table = "Reports"
 
     def __str__(self):
-        return self.observacion             
+        return self.report             

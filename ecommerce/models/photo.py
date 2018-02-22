@@ -8,7 +8,7 @@ class Photo_seller(models.Model):
         Seller, on_delete=models.CASCADE
     )
 
-    foto = models.ImageField(
+    photo = models.ImageField(
         upload_to = 'sellers/'
     )
 
@@ -33,7 +33,7 @@ class Photo_prod(models.Model):
         Product, on_delete=models.CASCADE
     )
 
-    foto = models.ImageField(
+    photo = models.ImageField(
         upload_to = 'sellers/'
     )
 
