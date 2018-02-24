@@ -8,4 +8,5 @@ pillow
 djangorestframework
 djangorestframework-camel-case
 ipython
+django-fsm
 
