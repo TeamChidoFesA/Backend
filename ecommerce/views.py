@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,3 +20,12 @@ class SignUpView(APIView):
         print(user)
 
         return Response()
+
+class CatAttributeList(APIView):
+    serializer_class = serializers.CatAttributeSerializer
+
+    def get(self, request, *args, **kwargs):
+        cat_attributes = models.Cat_attribute.objects.all()
+        serializer = serializers.CatAttributeSerializer(cat_attributes, many=True)
+        print(cat_attributes)
+        return JsonResponse(serializer.data, safe=False)

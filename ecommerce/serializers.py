@@ -26,3 +26,16 @@ class SignUpSerializer(serializers.Serializer):
         read_only_fields = (
             'type_user'
         )
+
+class CatAttributeSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField()
+    attribute = serializers.CharField()
+    
+    class Meta:
+        model = models.Cat_attribute
+
+        fields = (
+            'id',
+            'attribute'
+        )
