@@ -16,8 +16,18 @@ Including another URLconf
 from django.urls import path
 from .views import SignUpView
 from .views import CatAttributeList
+from .views import CatCategoryList
+from .views import CatPayTypeList
+from .views import CatSkillList
+from .views import CatStatusOrderList
+from .views import CatTypeUserList
 
 urlpatterns = [
     path('signup/', SignUpView.as_view()),
-    path('atributos/', CatAttributeList.as_view()),
+    path('attributes/', CatAttributeList.as_view()),
+    path('categories/', CatCategoryList.as_view()),
+    path('paytypes/', CatPayTypeList.as_view()),
+    path('skills/', CatSkillList.as_view()),
+    path('orderstatus/',CatStatusOrderList.as_view()),
+    path('typeusers', CatTypeUserList.as_view()),
 ]

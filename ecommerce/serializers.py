@@ -39,3 +39,60 @@ class CatAttributeSerializer(serializers.Serializer):
             'id',
             'attribute'
         )
+
+class CatCategorySerializer(serializers.Serializer):
+
+    id = serializers.IntegerField()
+    category = serializers.CharField()
+
+    class Meta:
+        fields = (
+            'id',
+            'category'
+        )
+
+
+class CatPayTypeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    pay_type = serializers.CharField()
+
+    class Meta:
+        field = (
+            'id',
+            'pay_type'
+        )
+
+
+class CatSkillSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    skill = serializers.CharField()
+
+    class Meta:
+        field = (
+            'id',
+            'skill'
+        )
+
+
+class CatStatusOrderSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    status = serializers.CharField()
+    description = serializers.CharField()
+
+    class Meta:
+        field = (
+            'id',
+            'status',
+            'description'
+        )
+
+
+class CatTypeUserSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    type_user = serializers.CharField()
+
+    class Meta:
+        field = (
+            'id',
+            'type_user'
+        ) 
