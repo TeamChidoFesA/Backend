@@ -18,7 +18,9 @@ class SignUpView(APIView):
         user = serializer.save(type_user=type_user)
         print(user)
 
-        return Response()
+        return Response({
+            "ok": "Created"}
+            ,201)
 
 class CatAttributeList(APIView):
     serializer_class = serializers.CatAttributeSerializer

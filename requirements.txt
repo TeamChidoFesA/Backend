@@ -1,5 +1,5 @@
-Django==2.0.1
-pytz==2017.3
+Django
+pytz
 mysqlclient
 django-cors-headers
 django-dotenv

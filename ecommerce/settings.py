@@ -75,13 +75,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DATABASE_NAME', 'ecommerce'),
-        'HOST': os.environ.get('DATABASE_HOST', '127.0.0.1'),
+        'HOST': os.environ.get('DATABASE_HOST', 'capptu.ccaxaxrkkey5.us-east-2.rds.amazonaws.com'),
         'PORT': os.environ.get('DATABASE_PORT', 3306),
-        'USER': os.environ.get('DATABASE_USER', 'root'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'root'),
-        'OPTIONS': {
-            'isolation_level': 'read committed'
-        }
+        'USER': os.environ.get('DATABASE_USER', 'osmarcapptu'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'capptu2018'),
     }
 }
 

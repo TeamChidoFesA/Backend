@@ -12,7 +12,7 @@ class SignUpSerializer(serializers.Serializer):
 
     def create(self, data):
 
-        models.User.objects.create(**data)
+        return models.User.objects.create(**data)
 
     class Meta:
         model = models.User

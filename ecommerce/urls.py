@@ -29,5 +29,5 @@ urlpatterns = [
     path('paytypes/', CatPayTypeList.as_view()),
     path('skills/', CatSkillList.as_view()),
     path('orderstatus/',CatStatusOrderList.as_view()),
-    path('typeusers', CatTypeUserList.as_view()),
+    path('typeusers/', CatTypeUserList.as_view()),
 ]
